@@ -1,12 +1,12 @@
 {
-    "name": "supianidz/laravel-impersonate",
+    "name": "nalewis75/laravel-impersonate",
     "description": "Login As A Different User Quickly",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "SupianIDz",
-            "email": "supianidz@gmail.com"
+            "name": "NA Lewis",
+            "email": "nalewis@redglass.com.au"
         }
     ],
     "require": {

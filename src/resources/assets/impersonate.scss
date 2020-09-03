@@ -1,4 +1,4 @@
-@import "../../node_modules/tail.select/css/default/tail.select-light.css";
+@import "../../../node_modules/tail.select/css/default/tail.select-light.css";
 
 ._impersonate {
     bottom: 30px;
@@ -120,4 +120,12 @@
 .tail-select .select-dropdown ul li.dropdown-option.selected, .tail-select input[type=text]:focus {
     color: #329FB9 !important;
     outline: none 0;
+}
+
+.tail-select input {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }

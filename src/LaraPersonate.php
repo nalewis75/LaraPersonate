@@ -93,7 +93,7 @@ class LaraPersonate
      * @return mixed
      * @throws BindingResolutionException
      */
-    private function getOriginalUser()
+    public function getOriginalUser()
     {
         if (! $this->hasSigned()) {
             return $this->auth->user();
@@ -156,14 +156,14 @@ class LaraPersonate
     /**
      * @return mixed
      */
-    public function getUsers()
+    public function getUsers(Request $request = null)
     {
         try {
             $model = $this->app->make(config('impersonate.user_model'));
 
             return $this->app->makeWith(
                 $this->getAuthorizationDriver($model), compact('model')
-            )->handle();
+            )->handle($request);
         } catch (BindingResolutionException $exception) {
         } catch (Exception $exception) {
         }

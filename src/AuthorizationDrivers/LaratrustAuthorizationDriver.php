@@ -15,7 +15,7 @@ class LaratrustAuthorizationDriver extends AuthorizationDriver
     /**
      * @return mixed|void
      */
-    public function handle()
+    public function handle($request = null)
     {
         return App::make(config('laratrust.models.role'))->get()->map(function ($role) {
             return collect(config('laratrust.user_models'))->map(function ($relationship, $key) use ($role) {

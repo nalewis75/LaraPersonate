@@ -30,7 +30,7 @@ abstract class AuthorizationDriver
     /**
      * @return mixed
      */
-    abstract public function handle();
+    abstract public function handle($request = null);
 
     /**
      * @param  Collection  $collection

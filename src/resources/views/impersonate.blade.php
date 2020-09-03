@@ -26,7 +26,8 @@
         <form method="POST" action="{{ route('impersonate.signin') }}">
             @csrf
             <input type="hidden" name="originalId" value="{{ $originalUser->$id }}">
-            <select class="_impersonate-select" name="userId" onchange="this.form.submit();"></select>
+            <select class="_impersonate-select" name="userId"></select>
+            {{-- onchange="this.form.submit();" --}}
         </form>
         @if($hasSigned)
             <div class="_impersonate-signout">

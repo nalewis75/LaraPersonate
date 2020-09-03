@@ -6,6 +6,7 @@ Is a user impersonate for the laravel framework. allow a developer direct login 
 ## Features
 - Displays users based their role.
 - Limit the number of users displayed.
+- Allows searching of the data for a given user.
 - Search form using [tail.select](https://github.pytes.net/tail.select/).
 - Auto discovery, no more setting up your ServiceProvider manually.
 - Automatic injection via a middleware, no need to add some code to the blade.
@@ -16,10 +17,15 @@ To install the package, simply follow the steps below.
 Install the package using Composer:
 
 ```
-$ composer require supianidz/laravel-impersonate --dev
+$ composer require supianidz/laravel-impersonate
 
 $ php artisan vendor:publish
 ```
+
+## Authorized Users
+You can add a comma seperated list of user emails that are authorized to use Lara Personate.
+
+Set the AUTHORIZED_EMAILS in your .env file.
 
 ## Lara Personate 1.2.x Upgrade Guide
 Since there are many changes in the config and assets files in version 1.2.0, make sure to republish the package.

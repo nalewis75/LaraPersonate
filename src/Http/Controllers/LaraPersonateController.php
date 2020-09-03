@@ -27,17 +27,43 @@ class LaraPersonateController extends Controller
      */
     public function __construct(LaraPersonate $personate)
     {
+        // Check for authorization
         $this->personate = $personate;
+
+        if(!$this->isAdmin()) {
+            return response('',403);
+        }
+    }
+
+    private function isAdmin()
+    {
+        $user = $this->personate->getOriginalUser();
+
+        $emails = array_map("strtolower", config('impersonate.authorized_emails', []));
+
+        if($user == null) {
+            \Log::debug("User is null??");
+            return false;
+        }
+
+        \Log::debug($user->email . " - " . json_encode($emails));
+
+        return in_array(strtolower($user->email), $emails);
     }
 
     /**
      * @return array|mixed
      */
-    public function getUsers()
+    public function getUsers(Request $request)
     {
+        if(!$this->isAdmin()) {
+            return response('',403);
+        }
+
         try {
-            return $this->personate->getUsers();
+            return $this->personate->getUsers($request);
         } catch (Exception $exception) {
+            \Log::debug($exception->getMessage());
             return [];
         }
     }
@@ -48,6 +74,10 @@ class LaraPersonateController extends Controller
      */
     public function trySignin(Request $request) : RedirectResponse
     {
+        if(!$this->isAdmin()) {
+            return response('',403);
+        }
+
         try {
             $this->personate->signin($request->userId, $request->originalId);
         } catch (Exception $exception) {
@@ -61,6 +91,10 @@ class LaraPersonateController extends Controller
      */
     public function trySignout() : RedirectResponse
     {
+        if(!$this->isAdmin()) {
+            return response('',403);
+        }
+
         try {
             $this->personate->signout();
         } catch (Exception $exception) {

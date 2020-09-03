@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Octopy\LaraPersonate\LaraPersonate;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Octopy\LaraPersonate\LaraPersonateServiceProvider;
 
 /**
  * Class LaraPersonateMiddleware
@@ -38,6 +39,10 @@ class LaraPersonateMiddleware
      */
     public function handle($request, Closure $next)
     {
+        if(!$this->isAdmin()) {
+            return $next($request);
+        }
+
         if ($request->ajax() || ! $this->personate->isEnabled() || ! $this->isAllowed($request) || $this->personate->personateRequest($request)) {
             return $next($request);
         }
@@ -73,5 +78,21 @@ class LaraPersonateMiddleware
         }
 
         return false;
+    }
+
+    private function isAdmin()
+    {
+        $user = $this->personate->getOriginalUser();
+
+        $emails = array_map("strtolower", config('impersonate.authorized_emails', []));
+
+        if($user == null) {
+            \Log::debug("User is null??");
+            return false;
+        }
+
+        \Log::debug($user->email . " - " . json_encode($emails));
+
+        return in_array(strtolower($user->email), $emails);
     }
 }

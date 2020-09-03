@@ -14,6 +14,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | LaraPersonate
+    |--------------------------------------------------------------------------
+    | This is a list of authorized email that can use LaraPersonate.
+    |
+    */
+    'authorized_emails'     => explode(',', env('AUTHORIZED_EMAILS', '')),
+
+    /*
+    |--------------------------------------------------------------------------
     | Allowed TLD
     |--------------------------------------------------------------------------
     |
@@ -37,7 +46,17 @@ return [
     | displayed in the select dropdown. This must be an Eloquent Model instance.
     |
     */
-    'user_model'  => App\User::class,
+    'user_model'  => config('auth.providers.users.model', App\User::class),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Search Fields
+    |--------------------------------------------------------------------------
+    |
+    | Fields to search on when doing a request from the model.
+    |
+    */
+    'search_fields' => ['FirstName', 'LastName'],
 
     'fields'     => [
 
@@ -60,7 +79,7 @@ return [
         | for example such as `name`, `user_name`, `full_name`, etc.
         |
         */
-        'name' => 'name',
+        'name' => 'fullName',
     ],
 
     /*
@@ -96,5 +115,5 @@ return [
     | Be careful, this might make your application crash if there is a lot of user data.
     |
     */
-    'limit'      => 3,
+    'limit'      => 10,
 ];
