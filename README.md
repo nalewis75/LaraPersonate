@@ -17,7 +17,7 @@ To install the package, simply follow the steps below.
 Install the package using Composer:
 
 ```
-$ composer require supianidz/laravel-impersonate
+$ composer require nalewis75/laravel-impersonate
 
 $ php artisan vendor:publish
 ```
